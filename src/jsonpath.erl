@@ -29,14 +29,18 @@
 -include("jsonpath.hrl").
 
 search(Path, Data) when is_binary(Data) ->
-	search(Path, jiffy:decode(Data));
+    search(Path, jiffy:decode(Data));
+search(Path, Data) when is_binary(Path) ->
+    search_data(parse_path(Path), Data);
 search(Path, Data) ->
-	search_data(parse_path(Path), Data).
+    search_data(Path, Data).
 
 replace(Path, Replace, Data) when is_binary(Data) ->
 	replace(Path, Replace, jiffy:decode(Data));
+replace(Path, Replace, Data) when is_binary(Path) ->
+	replace_data(parse_path(Path), Replace, Data);
 replace(Path, Replace, Data) ->
-	replace_data(parse_path(Path), Replace, Data).
+	replace_data(Path, Replace, Data).
 
 replace_data([SearchHead|SearchTail], Replace, Structure) ->
 	case Structure of 
