@@ -131,6 +131,9 @@ search_data([Head|Tail], Data) ->
 			end
 	end.
 
+search_list([<<"random">>|Tail], List) ->
+    Index = random:uniform(length(List)) - 1,
+    search_data(Tail, lists:nth(Index, List));
 search_list([Head|Tail], List) ->
 	%?DEBUG("list search for ~p in ~p",[Head, List]),
 	try 

@@ -31,6 +31,11 @@ search_array_index_test() ->
 			{<<"onclick">>,<<"OpenDoc()">>}]},
 		jsonpath:search(<<"menu.popup.menuitem[1]">>, ?JSON)).
 
+search_array_random_index_test() ->
+    ?assertMatch({[{<<"value">>, _},
+		   {<<"onclick">>, _}]},
+		 jsonpath:search(<<"menu.popup.menuitem[random]">>, ?JSON)).
+
 replace_single_node_test() ->
 	?assertEqual(
 		{[{<<"menu">>,
